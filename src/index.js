@@ -1,34 +1,53 @@
-import {createStore} from 'redux';
+import {createStore, bindActionCreators} from 'redux';
+import reducer from './reducer';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {Provider} from 'react-redux';
+import * as actions from './actions';
+import Counter from './components/Counter';
+import './styles.css';
+import App from './components/app';
 
 
-const reducer = (state = 0, action)=>{
+//107 29:30
+
+const store = createStore(reducer);
+/* const {dispatch} = store; */
+
+/* const bindActionCreator = (creator, dispatch)=>(...args)=>{
+  dispatch(creator(args));
+}  */
+
+
+
+
+
+/* const {inc, dec, rnd} = bindActionCreators(
+actions ,dispatch); */
+/* const decDispatch = bindActionCreators(dec,dispatch);
+const rndDispatch = bindActionCreators(rnd,dispatch); */
+
+
+
  
-  switch(action.type) {
-    case 'PLUS':
-      return state + 1;
-    case 'MINUS':
-      return state -1;
-    case 'RESET':
-      return state = 0;    
-    default:
-      return state; 
-  }
-  
- }
-
- const store = createStore(reducer);
- document.getElementById('plus').addEventListener('click', ()=>{
-  store.dispatch({type: 'PLUS'});
- });
- document.getElementById('minus').addEventListener('click', ()=>{
-  store.dispatch({type: 'MINUS'});
- });
- document.getElementById('reset').addEventListener('click', ()=>{
-   store.dispatch({type: 'RESET'});
- })
+/*  document.getElementById('inc').addEventListener('click', 
+  inc
+);
+ document.getElementById('dec').addEventListener('click', 
+  dec
+ );
+ document.getElementById('rnd').addEventListener('click', ()=>{
+    const value = Math.floor(Math.random() * 10);
+   rnd(value)
+ }) */
  
- const update = ()=>{
-  document.getElementById('counter').textContent= store.getState()
- }
+ 
+  ReactDOM.render(
+    <Provider store={store}>
+      <App/>
+    </Provider>
+    
+    , document.getElementById('root'));
+ 
 
- store.subscribe(update);
+ 
